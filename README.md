@@ -4,7 +4,7 @@ Capture Postgress DB in Heroku and copy it to s3 bucket. Buildpack contains AWS 
 ### Installation
 Add buildpack to your Heroku app
 ```
-heroku buildpacks:add https://github.com/devsenexx/heroku-db-backup-s3 --app <your_app>
+heroku buildpacks:add https://github.com/jalevin/heroku-db-backup-s3 --app <your_app>
 ```
 > Buildpacks are scripts that are run when your app is deployed.
 
