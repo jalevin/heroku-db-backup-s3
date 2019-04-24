@@ -51,6 +51,10 @@ if [[ -z "$DBURL_FOR_BACKUP" ]]; then
   exit 1
 fi
 
+if [[ "$DBURL_FOR_BACKUP" -ne "$DATABASE_URL" ]]; then
+	echo "WARNING: your backup URL is not the primary database url"
+fi
+
 printf "${Green}Start dump${EC}"
 # Maybe in next 'version' use heroku-toolbelt
 # /app/vendor/heroku-toolbelt/bin/heroku pg:backups capture $DATABASE --app $HEROKU_TOOLBELT_APP
