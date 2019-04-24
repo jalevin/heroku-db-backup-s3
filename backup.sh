@@ -66,7 +66,7 @@ else
 	PUSH='push_'
 fi
 
-fullname="/tmp/${PUSH}${DBNAME}_${FILENAME}.gz"
+fullname="${PUSH}${DBNAME}_${FILENAME}.gz"
 
 
 time pg_dump $DBURL_FOR_BACKUP | gzip >  /tmp/"${fulname}".gz
