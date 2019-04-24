@@ -73,7 +73,7 @@ fi
 fullname="${PUSH}${DBNAME}_${FILENAME}.gz"
 
 
-time pg_dump $DBURL_FOR_BACKUP | gzip >  /tmp/"${fulname}".gz
+time pg_dump $DBURL_FOR_BACKUP | gzip > /tmp/"${fullname}".gz
 
 #EXPIRATION_DATE=$(date -v +"2d" +"%Y-%m-%dT%H:%M:%SZ") #for MAC
 EXPIRATION_DATE=$(date -d "$EXPIRATION days" +"%Y-%m-%dT%H:%M:%SZ")
