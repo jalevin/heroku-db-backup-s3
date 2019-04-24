@@ -58,18 +58,24 @@ printf "${Green}Start dump${EC}"
 # curl --progress-bar -o /tmp/"${DBNAME}_${FILENAME}" $BACKUP_URL
 # gzip /tmp/"${DBNAME}_${FILENAME}"
 
-$PUSH = ''
-if [[ -z "$PUSH" ]]; then
-	$PUSH = 'push_'
+
+if [ -z "$PUSH" ]; 
+then 
+	PUSH=''
+else
+	PUSH='push_'
 fi
 
-time pg_dump $DBURL_FOR_BACKUP | gzip >  /tmp/"${PUSH}${DBNAME}_${FILENAME}".gz
+fullname="/tmp/${PUSH}${DBNAME}_${FILENAME}.gz"
+
+
+time pg_dump $DBURL_FOR_BACKUP | gzip >  /tmp/"${fulname}".gz
 
 #EXPIRATION_DATE=$(date -v +"2d" +"%Y-%m-%dT%H:%M:%SZ") #for MAC
 EXPIRATION_DATE=$(date -d "$EXPIRATION days" +"%Y-%m-%dT%H:%M:%SZ")
 
 printf "${Green}Move dump to AWS${EC}"
-time /app/vendor/awscli/bin/aws s3 cp /tmp/"${PUSH}${DBNAME}_${FILENAME}".gz s3://$S3_BUCKET_PATH/$DBNAME/"${PUSH}${DBNAME}_${FILENAME}".gz --expires $EXPIRATION_DATE
+time /app/vendor/awscli/bin/aws s3 cp /tmp/"${fullname}".gz s3://$S3_BUCKET_PATH/$DBNAME/"${fullname}".gz --expires $EXPIRATION_DATE
 
 # cleaning after all
-rm -rf /tmp/"${DBNAME}_${FILENAME}".gz
+rm -rf /tmp/"${fullname}".gz
